@@ -46,8 +46,11 @@ font-size: 17px;
 .score-box p{
     font-size: 40px;
 }
-
-.reset-bt{
+.navbutton{
+    display: flex;
+    gap: 40px;
+}
+.play-again{
 width: 80px;
 height: 30px;
 background-color: rgb(126, 64, 201);
