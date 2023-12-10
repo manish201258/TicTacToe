@@ -1,5 +1,6 @@
 let boxes=document.querySelectorAll(".box");
-let reset=document.querySelector(".reset-bt")
+let reset=document.querySelector("#reset-bt")
+let play_again=document.querySelector("#play-bt")
 let player1=document.querySelector("#pla1")
 let player2=document.querySelector("#pla2")
 let turn=true;
@@ -32,27 +33,37 @@ boxes.forEach((box)=>{
 })  ;
 });
 
+let disableBox=()=>{
+    for(let box of boxes){
+        box.disabled=true;
+    }
+}
+
+let enableBox=()=>{
+    for(let box of boxes){
+        box.disabled=false;
+        box.innerText="";
+        turn=true;
+    }
+}
+
 const checkWinner =()=>{
     for(let pattern of winPattern){
         let val1=boxes[pattern[0]].innerText;
         let val2=boxes[pattern[1]].innerText;
         let val3=boxes[pattern[2]].innerText;
         if(val1!=""&&val2!=""&&val3!=""){
-            if(val1==="0"&&val2==="0"&&val3==="0"){
+            if((val1===val2&&val2===val3)&&val1===val3){
+              
+            if(val1==="0"){
                 player_1_count++
                 player1.innerText=player_1_count;
-                boxes.forEach((box)=>{
-                    box.innerText=''
-                    box.disabled=false;
-            })
+                disableBox();
             }
-            else if(val1==="X"&&val2==="X"&&val3==="X"){
+            else if(val1==="X"){
                 player_2_count++
                 player2.innerText=player_2_count;
-                boxes.forEach((box)=>{
-                    box.innerText=''
-                    box.disabled=false;
-            })
+                disableBox();
             }
             
         }
@@ -60,12 +71,14 @@ const checkWinner =()=>{
 }
 
 reset.addEventListener("click",()=>{
-        boxes.forEach((box)=>{
-            box.innerText=''
-            box.disabled=false;
-            turn=true;
-    })
+    enableBox();
+    player_1_count=0;
+    player_2_count=0;
         player1.innerText=0;
         player2.innerText=0;
 })
 
+play_again.addEventListener("click",()=>{
+    enableBox();
+})
+}
